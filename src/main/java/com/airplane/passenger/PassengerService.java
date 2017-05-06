@@ -23,4 +23,9 @@ public class PassengerService {
 		return new ResponseEntity(passenger, responseHeaders, HttpStatus.OK);
 		//System.out.println(passenger.getId());
 	}
+	public Passenger getPassenger(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
