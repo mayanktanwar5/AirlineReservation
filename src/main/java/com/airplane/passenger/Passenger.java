@@ -1,39 +1,48 @@
 package com.airplane.passenger;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.airplane.flight.Flight;
+import com.airplane.reservation.PlaneReservation;
 
 @Entity
+@Table(name="passenger")
 public class Passenger {
+
 	@Id
-	 @GeneratedValue(strategy=GenerationType.AUTO)
-	 private String id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="passenger_id")
+	private int id;
 	private String firstname;
 	private String lastname;
-	private String age;
+	private int age;
 	private String gender;
+
 	@Column(unique=true)
 	private String phone;
-	public Passenger()
-	{}
-	public Passenger(String id)
-	{ this.id = id;}
-	public Passenger(String firstname, String lastname, String age, String gender, String phone) {
-		super();
-	    //this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.age = age;
-		this.gender = gender;
-		this.phone = phone;
+
+	@OneToMany
+	@JoinColumn(name="order_number")
+	@JsonManagedReference
+	private List<PlaneReservation> reservation;
+
+	@ManyToMany(mappedBy="passengers")
+	@JsonBackReference
+	private List<Flight> flight;
+
+	public Passenger(){
+
 	}
-	public String getId() {
+
+	public int getPassengerId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setPassengerId(int id) {
 		this.id = id;
 	}
 	public String getFirstname() {
@@ -48,10 +57,10 @@ public class Passenger {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public String getGender() {
@@ -66,4 +75,13 @@ public class Passenger {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	public List<PlaneReservation> getReservation() {
+		return reservation;
+	}
+
+	public void addReservation(PlaneReservation reservation) {
+		this.reservation.add(reservation);
+	}
+
 }
