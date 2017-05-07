@@ -44,7 +44,7 @@ public class FlightService {
         Flight currentFlight=flightRepoData.getOne(flight.getNumber());
         List<Passenger> passengers=currentFlight.getPassengers();
         if(passengers==null) {
-            System.out.println(" We havent found any passenger for the flight we are updating/Saving it now");
+           
             return flight;
         }
 
@@ -114,7 +114,7 @@ public class FlightService {
                 System.out.println("Flight id :"+id+" does not exist.");
                 return false;
             }
-            //System.out.println("Passengers  in flight :"+flight.getPassengers());
+            
             if(flight.getPassengers()!=null && flight.getPassengers().size()>0)
                 return false;
             flightRepoData.delete(id);
@@ -129,7 +129,7 @@ public class FlightService {
     public Passenger addPassenger(Flight flight, Passenger passenger) {
         if(flight.getSeatsLeft()<=0)
             return null;
-        //System.out.println("Flight :"+flight+" passenger :"+passenger);
+        
         flight.addPassenger(passenger);
         flight.setSeatsLeft(flight.getSeatsLeft()-1);
         flightRepoData.save(flight);

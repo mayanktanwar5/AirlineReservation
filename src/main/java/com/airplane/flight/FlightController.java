@@ -25,7 +25,7 @@ public class FlightController {
         if(results==null){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("We are no flight was not found. Please check later !!");
+            e.setMessage("Sorry we Could not find flights you are looking for come back later.");
             throw e;
         }
         return results;
@@ -38,7 +38,7 @@ public class FlightController {
         if(resultFlight==null){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("Sorry your requested id "+id+" was not found");
+            e.setMessage("No flight with "+id+ "was found in db");
             throw e;
         }
         return resultFlight;
@@ -67,7 +67,7 @@ public class FlightController {
             arr = dateFormatter.parse(arrivalTime);
         }
         catch (Exception e) {
-            System.out.println("Date Format error "+e);
+//            System.out.println("Date Format error "+e);
         }
 
         flight.setNumber(id);
@@ -90,7 +90,7 @@ public class FlightController {
         if(flightResult==null){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("We coulnot update your flight, Possible reason a) Flight doesnot exist b) Their might be an overlap");
+            e.setMessage("No file was updated in the database");
             throw e;
         }
         return flightResult;
@@ -102,7 +102,7 @@ public class FlightController {
         if(!serviceFlight.deleteFlight(id)){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("We could not delete this flight. Reason a) flight id is not correct  b) No passengers have booked this flight");
+            e.setMessage("Couldnot deleet the flight, enter the correct flight Id");
             throw e;
         }
         return true;

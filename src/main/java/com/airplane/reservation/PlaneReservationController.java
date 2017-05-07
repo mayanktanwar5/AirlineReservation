@@ -34,7 +34,7 @@ public class PlaneReservationController {
         if(resv==null){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("The reservation with id "+id+" was not found, Enter a valid reservation Id");
+            e.setMessage(" The requested reservation with id "+id+" not present in the database");
             throw e;
         }
         return new ResponseEntity(jsonObj.toString(), HttpStatus.OK);
@@ -47,7 +47,7 @@ public class PlaneReservationController {
         if(reservation==null){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("The requested reservarion request for passenger with id "+passengerID+" could not be performed. Possible Reason : Either passenger or flight not present or conflict detected.");
+            e.setMessage("Sorry! The requested reservarion for passenger with id "+passengerID+" could not be performed. Either passenger or flight not present or conflict detected.");
             throw e;
         }
         return new ResponseEntity(XML.toString(jsonResObj), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class PlaneReservationController {
         if(resevList==null){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("No results found for your search, Seacrh with different keyword");
+            e.setMessage("Sorry your search returned no results.");
             throw e;
         }
         return resevList;
@@ -75,7 +75,7 @@ public class PlaneReservationController {
         if(!reservationService.deleteReservation(id)){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("Reservation ID "+id+" was not found in database ");
+            e.setMessage("Reservation with number "+id+" does not exist ");
             throw e;
         }
 
@@ -89,14 +89,14 @@ public class PlaneReservationController {
         if(flightsAdded!=null && flightsAdded.size()==0) {
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("Reservation could not be updated. Add flights in the flightsAdded parameter.");
+            e.setMessage("Could not update reservation. Please add flights in the flightsAdded parameter.");
             throw e;
 
         }
         if(flightsRemoved!=null && flightsRemoved.size()==0){
             ImportantException e = new ImportantException();
             e.setCode(404);
-            e.setMessage("Reservation could not be updated. Add flights in the flightsRemoved parameter.");
+            e.setMessage("Could not update reservation. Please add flights in the flightsRemoved parameter.");
             throw e;
         }
 
@@ -104,7 +104,7 @@ public class PlaneReservationController {
             if (!reservationService.addFlights(id, flightsAdded)){
                 ImportantException e = new ImportantException();
                 e.setCode(404);
-                e.setMessage("Reservation could not be updated. Please check for conflicts");
+                e.setMessage("Could not add flights to reservation. Please check for conflicts before retrying");
                 throw e;
             }
         }
@@ -112,7 +112,7 @@ public class PlaneReservationController {
             if (!reservationService.removeFlights(id, flightsRemoved)){
                 ImportantException e = new ImportantException();
                 e.setCode(404);
-                e.setMessage("Flight cannot be removed from the reservation");
+                e.setMessage("Could not remove flights from reservation.");
                 throw e;
             }
         }

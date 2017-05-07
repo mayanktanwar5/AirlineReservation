@@ -41,7 +41,6 @@ public class Flight {
 	private Plane plane=new Plane();
 
 	@ManyToMany(mappedBy = "flights",fetch= FetchType.EAGER)
-	//@JoinColumn(name="order_number")
 	@JsonBackReference
 	private List<PlaneReservation> reservation;
 
@@ -75,12 +74,7 @@ public class Flight {
 				'}';
 	}
 
-	public String getNumber() {
-		return number;
-	}
-	public void setNumber(String number) {
-		this.number = number;
-	}
+	
 	public int getPrice() {
 		return price;
 	}
@@ -93,37 +87,48 @@ public class Flight {
 	public void setFromSource(String from) {
 		this.fromSource = from;
 	}
-	public String getToDestination() {
-		return toDestination;
+	
+	public String getNumber() {
+		return number;
 	}
-	public void setToDestination(String to) {
-		this.toDestination = to;
+	public void setNumber(String number) {
+		this.number = number;
 	}
-
 	public List<Passenger> getPassengers(){
 		return null;
 	}
 	public Date getDepartureTime() {
 		return departureTime;
 	}
+	
+	public String getToDestination() {
+		return toDestination;
+	}
+	public void setToDestination(String to) {
+		this.toDestination = to;
+	}
+	
 	public void setDepartureTime(Date departureTime) {
 		this.departureTime = departureTime;
 	}
 	public Date getArrivalTime() {
 		return arrivalTime;
 	}
-	public void setArrivalTime(Date arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
-	public int getSeatsLeft() {
-		return seatsLeft;
-	}
+	
 	public void setSeatsLeft(int seatsLeft) {
 		this.seatsLeft = seatsLeft;
 	}
 	public String getDescription() {
 		return description;
 	}
+	
+	public void setArrivalTime(Date arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+	public int getSeatsLeft() {
+		return seatsLeft;
+	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -132,17 +137,19 @@ public class Flight {
 		this.plane.setModel(model);
 	}
 
-	public void setCapacity(int capacity){
-		this.plane.setCapacity(capacity);
-	}
-	public void setManufacturer(String manufacturer) {
-		this.plane.setManufacturer(manufacturer);
-	}
+	
 	public void addPassenger(Passenger passenger){
 		this.passengers.add(passenger);
 	}
 	public void setYearOfManufacture(int yearOfManufacture) {
 		this.plane.setYearOfManufacture(yearOfManufacture);
+	}
+	
+	public void setCapacity(int capacity){
+		this.plane.setCapacity(capacity);
+	}
+	public void setManufacturer(String manufacturer) {
+		this.plane.setManufacturer(manufacturer);
 	}
 
 	public void setReservation(PlaneReservation reservation) {

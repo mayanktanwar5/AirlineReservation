@@ -9,14 +9,15 @@ public class ImportantException extends Exception{
 	public String message;
 	public boolean xml;
 	
-	public int getCode() {
-		return code;
-	}
+	
 	public boolean isXml() {
 		return xml;
 	}
 	public void setXml(boolean xml) {
 		this.xml = xml;
+	}
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	public void setCode(int code) {
 		this.code = code;
@@ -24,7 +25,9 @@ public class ImportantException extends Exception{
 	public String getMessage() {
 		return message;
 	}
-	public void setMessage(String message) {
-		this.message = message;
-	}	
+	
+	
+	public int getCode() {
+		return code;
+	}
 }

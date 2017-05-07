@@ -39,12 +39,7 @@ public class Passenger {
 
 	}
 
-	public int getPassengerId() {
-		return id;
-	}
-	public void setPassengerId(int id) {
-		this.id = id;
-	}
+	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -62,6 +57,13 @@ public class Passenger {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public int getPassengerId() {
+		return id;
+	}
+	public void setPassengerId(int id) {
+		this.id = id;
 	}
 	public String getGender() {
 		return gender;

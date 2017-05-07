@@ -51,7 +51,7 @@ public class PassangerController {
 				e.setXml(true);
 			}
 			e.setCode(404);
-			e.setMessage("Sorry passenger with "+id+" couldnot be found, please retry with correct id");
+			e.setMessage("Sorry! The requested passenger with id "+id+" does not exist");
 			throw e;
 		}
 		
@@ -63,7 +63,7 @@ public class PassangerController {
 		}
 		
 		return new ResponseEntity(responseObj.toString(), HttpStatus.OK);
-		//return ResponseEntity.ok(res.toString());
+
 	}
 		
 	@PostMapping("/passenger")
@@ -79,7 +79,7 @@ public class PassangerController {
 			
 			ImportantException e = new ImportantException();
 			e.setCode(404);
-			e.setMessage("The mobile number is already registered with us please enter a new number");
+			e.setMessage("Another person with same number already exists");
 			throw e;
 		}
 		ModelMap resultMap = new ModelMap();
@@ -94,7 +94,7 @@ public class PassangerController {
 			
 			ImportantException e = new ImportantException();
 			e.setCode(404);
-			e.setMessage("Sorry we couldnot update your information");
+			e.setMessage("Sorry the passenger could not be updated");
 			throw e;
 		}
 		ModelMap resultMap = new ModelMap();
@@ -109,7 +109,7 @@ public class PassangerController {
 		{
 			ImportantException e = new ImportantException();
 			e.setCode(404);
-			e.setMessage("We coulnot found the "+ id+ "in our database, make sure you enter a correct id");
+			e.setMessage("Passenger with id "+ id+ " does not exist");
 			throw e;
 		}
 		return passengerService.getAllPassengers();
@@ -121,9 +121,9 @@ public class PassangerController {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH");
 			JSONObject jsonO = new JSONObject(passengerFormat(passenger));
 			Field map = jsonO.getClass().getDeclaredField("map");
-			map.setAccessible(true);//because the field is private final...
+			map.setAccessible(true);
 			map.set(jsonO, new LinkedHashMap<>());
-			map.setAccessible(false);//return flag
+			map.setAccessible(false);
 			jsonO.put("id", Integer.toString(passenger.getPassengerId()));
 			jsonO.put("firstname", passenger.getFirstname());
 			jsonO.put("lastname", passenger.getLastname());
@@ -136,18 +136,18 @@ public class PassangerController {
 				for(PlaneReservation reservation:reservations){
 					JSONObject reservationObject = new JSONObject();
 					Field iMap = reservationObject.getClass().getDeclaredField("map");
-					iMap.setAccessible(true);//because the field is private final...
+					iMap.setAccessible(true);
 					iMap.set(reservationObject, new LinkedHashMap<>());
-					iMap.setAccessible(false);//return flag
+					iMap.setAccessible(false);
 					reservationObject.put("orderNumber", reservation.getOrderNumber());
 					reservationObject.put("price", reservation.getPrice());
 					List<JSONObject> flightList = new ArrayList<JSONObject>();
 					for(Flight flight: reservation.getFlights()){
 						JSONObject flightObj = new JSONObject();
 						Field fMap = flightObj.getClass().getDeclaredField("map");
-						fMap.setAccessible(true);//because the field is private final...
+						fMap.setAccessible(true);
 						fMap.set(flightObj, new LinkedHashMap<>());
-						fMap.setAccessible(false);//return flag
+						fMap.setAccessible(false);
 						flightObj.put("number", flight.getNumber());
 						flightObj.put("price", flight.getPrice());
 						flightObj.put("from", flight.getFromSource());
@@ -157,9 +157,9 @@ public class PassangerController {
 						flightObj.put("description", flight.getDescription());
 						JSONObject plane = new JSONObject();
 						Field pMap = plane.getClass().getDeclaredField("map");
-						fMap.setAccessible(true);//because the field is private final...
+						fMap.setAccessible(true);
 						fMap.set(plane, new LinkedHashMap<>());
-						fMap.setAccessible(false);//return flag
+						fMap.setAccessible(false);
 						plane.put("capacity", flight.getPlane().getCapacity());
 						plane.put("model", flight.getPlane().getModel());
 						plane.put("manufacturer", flight.getPlane().getManufacturer());

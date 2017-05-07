@@ -27,6 +27,11 @@ public class Plane {
 	@Column(name="year_of_manufacture")
 	private int yearOfManufacture;
 
+
+    public Plane(){
+
+	}
+
     @Override
     public String toString() {
         return "Plane{" +
@@ -38,10 +43,8 @@ public class Plane {
                 '}';
     }
 
-    public Plane(){
-
-	}
-	
+    
+    
 	public int getPlane_id() {
 		return plane_id;
 	}
